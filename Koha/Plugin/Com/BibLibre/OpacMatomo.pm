@@ -33,8 +33,15 @@ sub new {
 sub _get_conf {
     my ($self) = @_;
 
-    my $conf_file_path = $self->mbf_path('config.yaml');
-    my $conf = LoadFile($conf_file_path);
+    my $conf;
+    eval {
+        my $conf_file_path = $self->mbf_path('config.yaml');
+        $conf = LoadFile($conf_file_path);
+    };
+    if ($@) {
+        warn "Error with config.yaml : $@";
+        return;
+    }
 
     return $conf;
 }
@@ -43,7 +50,9 @@ sub _get_lang {
     my ($self) = @_;
 
     my $conf = _get_conf;
-    my $l = $config->{'lang'};
+    return unless $conf;
+
+    my $l = $conf->{'lang'};
     my $lang_file_path = $self->mbf_path("lang_$l.yaml");
     my $lang = LoadFile($lang_file_path);
 
@@ -53,8 +62,10 @@ sub _get_lang {
 sub opac_head {
     my ( $self ) = @_;
 
-    my $config = $self->_get_conf;
-    my $tracker_url = $config->{'tracker_url'};
+    my $conf = $self->_get_conf;
+    return '' unless $conf;
+
+    my $tracker_url = $conf->{'tracker_url'};
 
     my $ret = q|
 <script src="__TRACKER_URL__/matomo.js"></script>
@@ -66,9 +77,11 @@ sub opac_head {
 sub opac_js {
     my ( $self ) = @_;
 
-    my $config = $self->_get_conf;
-    my $tracker_url = $config->{'tracker_url'};
-    my $site_id = $config->{'site_id'};
+    my $conf = $self->_get_conf;
+    return '' unless $conf;
+
+    my $tracker_url = $conf->{'tracker_url'};
+    my $site_id = $conf->{'site_id'};
     my $lang = _get_lang;
 
     my $ret = q|
