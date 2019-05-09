@@ -1,8 +1,10 @@
 package Koha::Plugin::Com::BibLibre::OpacMatomo;
 
+use base qw(Koha::Plugins::Base);
+
 use Modern::Perl;
 
-use base qw(Koha::Plugins::Base);
+use YAML qw(LoadFile);
 
 use C4::Context;
 
