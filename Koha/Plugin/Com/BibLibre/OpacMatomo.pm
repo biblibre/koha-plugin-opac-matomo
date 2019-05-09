@@ -51,7 +51,7 @@ sub _get_conf {
 sub _get_lang {
     my ($self) = @_;
 
-    my $conf = _get_conf;
+    my $conf = $self->_get_conf;
     return unless $conf;
 
     my $l              = $conf->{'lang'};
@@ -84,7 +84,7 @@ sub opac_js {
     my $tracker_url = $conf->{'tracker_url'};
     my $site_id     = $conf->{'site_id'};
 
-    my $lang                     = _get_lang;
+    my $lang                     = $self->_get_lang;
     my $i18n_custom_var_dosortby = $lang->{'i18n_custom_var_dosortby'};
     my $i18n_custom_var_q        = $lang->{'i18n_custom_var_q'};
     my $i18n_custom_var_idx      = $lang->{'i18n_custom_var_idx'};
