@@ -11,9 +11,9 @@ use C4::Context;
 our $VERSION = '1.0';
 
 our $metadata = {
-    name   => 'OpacMatomo',
-    author => 'BibLibre',
-    description => 'Matomo JS tracking code on OPAC',
+    name            => 'OpacMatomo',
+    author          => 'BibLibre',
+    description     => 'Matomo JS tracking code on OPAC',
     date_authored   => '2019-04-06',
     date_updated    => '2019-04-06',
     minimum_version => '18.1100000',
@@ -54,15 +54,15 @@ sub _get_lang {
     my $conf = _get_conf;
     return unless $conf;
 
-    my $l = $conf->{'lang'};
+    my $l              = $conf->{'lang'};
     my $lang_file_path = $self->mbf_path("lang_$l.yaml");
-    my $lang = LoadFile($lang_file_path);
+    my $lang           = LoadFile($lang_file_path);
 
     return $lang;
 }
 
 sub opac_head {
-    my ( $self ) = @_;
+    my ($self) = @_;
 
     my $conf = $self->_get_conf;
     return '' unless $conf;
@@ -77,14 +77,20 @@ sub opac_head {
 }
 
 sub opac_js {
-    my ( $self ) = @_;
+    my ($self) = @_;
 
     my $conf = $self->_get_conf;
     return '' unless $conf;
-
     my $tracker_url = $conf->{'tracker_url'};
-    my $site_id = $conf->{'site_id'};
-    my $lang = _get_lang;
+    my $site_id     = $conf->{'site_id'};
+
+    my $lang                     = _get_lang;
+    my $i18n_custom_var_dosortby = $lang->{'i18n_custom_var_dosortby'};
+    my $i18n_custom_var_q        = $lang->{'i18n_custom_var_q'};
+    my $i18n_custom_var_idx      = $lang->{'i18n_custom_var_idx'};
+    my $i18n_custom_var_limit    = $lang->{'i18n_custom_var_limit'};
+    my $i18n_custom_var_total    = $lang->{'i18n_custom_var_total'};
+    my $i18n_custom_var_offset   = $lang->{'i18n_custom_var_offset'};
 
     my $ret = q|
 <script type="text/javascript">
@@ -211,12 +217,12 @@ function trim ( myString ) { return myString.replace ( /^\s+/g , '' ).replace (/
 |;
     $ret =~ s/__TRACKER_URL__/$tracker_url/g;
     $ret =~ s/__SITE_ID__/$site_id/g;
-    $ret =~ s/__I18N_CUSTOM_VAR_DOSORTBY__/$lang->{'i18n_custom_var_dosortby'}/g;
-    $ret =~ s/__I18N_CUSTOM_VAR_Q__/$lang->{'i18n_custom_var_q'}/g;
-    $ret =~ s/__I18N_CUSTOM_VAR_IDX__/$lang->{'i18n_custom_var_idx'}/g;
-    $ret =~ s/__I18N_CUSTOM_VAR_LIMIT__/$lang->{'i18n_custom_var_limit'}/g;
-    $ret =~ s/__I18N_CUSTOM_VAR_TOTAL__/$lang->{'i18n_custom_var_total'}/g;
-    $ret =~ s/__I18N_CUSTOM_VAR_OFFSET__/$lang->{'i18n_custom_var_offset'}/g;
+    $ret =~ s/__I18N_CUSTOM_VAR_DOSORTBY__/$i18n_custom_var_dosortby/g;
+    $ret =~ s/__I18N_CUSTOM_VAR_Q__/$i18n_custom_var_q/g;
+    $ret =~ s/__I18N_CUSTOM_VAR_IDX__/$i18n_custom_var_idx/g;
+    $ret =~ s/__I18N_CUSTOM_VAR_LIMIT__/$i18n_custom_var_limit/g;
+    $ret =~ s/__I18N_CUSTOM_VAR_TOTAL__/$i18n_custom_var_total/g;
+    $ret =~ s/__I18N_CUSTOM_VAR_OFFSET__/$i18n_custom_var_offset/g;
 
     return $ret;
 }
