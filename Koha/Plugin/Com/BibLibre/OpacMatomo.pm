@@ -16,7 +16,7 @@ our $metadata = {
     description     => 'Matomo JS tracking code on OPAC',
     date_authored   => '2019-04-06',
     date_updated    => '2019-04-06',
-    minimum_version => '17.1111000',
+    minimum_version => '17.11.11.000',
     maximum_version => undef,
     version         => $VERSION,
 };
