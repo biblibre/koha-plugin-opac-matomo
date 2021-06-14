@@ -8,14 +8,14 @@ use YAML qw(LoadFile);
 
 use C4::Context;
 
-our $VERSION = '1.2';
+our $VERSION = '1.3';
 
 our $metadata = {
     name            => 'OpacMatomo',
     author          => 'BibLibre',
     description     => 'Matomo JS tracking code on OPAC',
     date_authored   => '2019-04-06',
-    date_updated    => '2021-04-31',
+    date_updated    => '2021-06-14',
     minimum_version => '18.11',
     maximum_version => undef,
     version         => $VERSION,
