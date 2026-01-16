@@ -3,11 +3,12 @@
 ## Installation
 
 1. Download KPZ file and install in your Koha
-2. On Koha server, copy `config.yaml.sample` into `config.yaml`
-3. Edit `config.yaml`
-4. Enter your Matomo website in __tracker_url__
-5. Enter the site id of this OPAC in __site_id__
-6. Choose your language in lang (you may create a new __lang_xx.yaml__ file)
+2. On Koha server, go into folder 'Koha/Plugin/Com/BibLibre/OpacMatomo/'
+3. Copy `config.yaml.sample` into `config.yaml`
+4. Edit `config.yaml`
+5. Enter your Matomo website in __tracker_url__
+6. Enter the site id of this OPAC in __site_id__
+7. Choose your language in lang (you may create a new __lang_xx.yaml__ file)
 
 ## Packaging
 
